@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahima Mannava | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Cormorant Garamond', 'serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            accent: '#0d9488',
+            accentHover: '#0f766e',
+            surface: '#f8fafc',
+            dark: '#1e293b',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Cormorant Garamond', serif; }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 40px -15px rgba(0,0,0,0.15); }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #0d9488; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    #mobile-menu.open { max-height: 500px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="font-heading text-2xl font-bold text-dark">Mahima Mannava</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">About</a>
+        <a href="#skills" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Skills</a>
+        <a href="#experience" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Experience</a>
+        <a href="#projects" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Projects</a>
+        <a href="#hackathons" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Hackathons</a>
+        <a href="#publications" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Publications</a>
+        <a href="#resumes" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Resume</a>
+        <a href="#contact" class="nav-link text-slate-600 hover:text-accent text-sm font-medium">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-200">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="text-slate-600 hover:text-accent py-1">About</a>
+        <a href="#skills" class="text-slate-600 hover:text-accent py-1">Skills</a>
+        <a href="#experience" class="text-slate-600 hover:text-accent py-1">Experience</a>
+        <a href="#projects" class="text-slate-600 hover:text-accent py-1">Projects</a>
+        <a href="#hackathons" class="text-slate-600 hover:text-accent py-1">Hackathons</a>
+        <a href="#publications" class="text-slate-600 hover:text-accent py-1">Publications</a>
+        <a href="#resumes" class="text-slate-600 hover:text-accent py-1">Resume</a>
+        <a href="#contact" class="text-slate-600 hover:text-accent py-1">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 bg-gradient-to-b from-white to-slate-50">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="font-heading text-5xl md:text-6xl font-bold text-dark mb-4">Mahima Mannava</h1>
+      <p class="text-xl md:text-2xl text-slate-600 mb-2">Graduate Student · San Jose State University</p>
+      <p class="text-slate-500 mb-8">AI & ML · Generative AI · Adversarial ML</p>
+      <a href="#resumes" class="inline-block px-8 py-3 bg-accent hover:bg-accentHover text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg">View Resume</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-6">About</h2>
+      <p class="text-slate-600 leading-relaxed">
+        I am a Master's student in Computer Science at San José State University. My areas of interest include Artificial Intelligence, Machine Learning, and Generative AI. I work as a Research Assistant at the Machine Intelligence and Complex Systems Lab (MICoSys) under Dr. Saptarshi Sengupta, and I love learning about new technologies in computer science.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Skills</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Languages</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Python, C/C++, Java, JavaScript, SQL, HTML, Tcl</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Databases</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">PostgreSQL, MongoDB, SQLite, ChromaDB</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">DevOps & Cloud</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">AWS, Docker, Kubernetes, Terraform, Jenkins, CircleCI, Linux, Git</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Distributed & Performance</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Kafka, Redis, Grafana, Prometheus</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Web Application</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">FastAPI, Django, React.js, Next.js, Tailwind CSS, Flask</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">AI/ML Frameworks</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">PyTorch, TensorFlow, Keras, LangChain, LangGraph, MCP</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Data Science</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">RAG, LLMs, pandas, NumPy, Scikit-learn</p>
+        </div>
+        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Tools & Software</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Ansible, Perforce</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Experience</h2>
+      <div class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6 border-b border-slate-200 last:border-0">
+          <div>
+            <h3 class="font-semibold text-dark">San Jose State University</h3>
+            <p class="text-slate-600 text-sm">Research Assistant – MICoSys Lab</p>
+          </div>
+          <span class="text-slate-500 text-sm">Aug 2025 – Present</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6 border-b border-slate-200 last:border-0">
+          <div>
+            <h3 class="font-semibold text-dark">Scale AI</h3>
+            <p class="text-slate-600 text-sm">Gen AI Intern</p>
+          </div>
+          <span class="text-slate-500 text-sm">Jun 2025 – Dec 2025</span>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6">
+          <div>
+            <h3 class="font-semibold text-dark">Synopsys Inc</h3>
+            <p class="text-slate-600 text-sm">Software Engineer</p>
+          </div>
+          <span class="text-slate-500 text-sm">Jan 2023 – Jun 2024</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Projects</h2>
+      
+      <h3 class="font-heading text-xl font-semibold text-dark mb-4">Software</h3>
+      <div class="grid md:grid-cols-2 gap-6 mb-12">
+        <a href="https://github.com/M4h1m4/Stackbirds" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">Stackbirds (Invoice Processor)</h4>
+          <p class="text-slate-600 text-sm">LLM-driven invoice processing app that extracts line items, matches approved vendors, and produces approve/flag decisions. FastAPI, React, MongoDB.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/DocumentAssistant" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">PrecisBox (Document Assistant)</h4>
+          <p class="text-slate-600 text-sm">FastAPI-based document summarization and RAG service with Redis job queues, semantic search, and ChromaDB. Natural language querying over documents.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/DeepResearchAgent" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">Deep Research Agent</h4>
+          <p class="text-slate-600 text-sm">Production-grade dual-mode RAG system for real-time QA and multi-step research synthesis. LangGraph, OpenAI, FastAPI, SQLAlchemy.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/fastapi-sqlite-job-queue" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">FastAPI SQLite Job Queue</h4>
+          <p class="text-slate-600 text-sm">Job queue service with durable state in SQLite. Upload text files, poll status, get results. Sync and async versions.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+      </div>
+
+      <h3 class="font-heading text-xl font-semibold text-dark mb-4">Machine Learning</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="https://github.com/M4h1m4/TrueAI" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">TrueAI (Near-Zero Hallucination RAG)</h4>
+          <p class="text-slate-600 text-sm">NLI-gated RAG loop with FAISS retrieval and RoBERTa fact-checking. 88.4% accuracy, defaults to "I don't know" for unsafe outputs.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/semantic-book-recommender-llms" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">Semantic Book Recommender</h4>
+          <p class="text-slate-600 text-sm">LLM-powered book recommendations using embeddings, vector similarity (ChromaDB), zero-shot genre classification, and RoBERTa sentiment.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/Intrusion-Detection-System" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">Intrusion Detection System</h4>
+          <p class="text-slate-600 text-sm">PSO-tuned deep learning on NSL-KDD: CNN-LSTM hybrid, PSO-optimized 1D-CNN and LSTM for attack classification.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+        <a href="https://github.com/M4h1m4/Auscultation-Sound-Classification" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
+          <h4 class="font-semibold text-dark mb-2">Auscultation Sound Classification</h4>
+          <p class="text-slate-600 text-sm">CNN-based classification of auscultation sounds. Includes Android app for real-time inference.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hackathons -->
+  <section id="hackathons" class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Hackathons</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="https://devpost.com/software/studybuddy-ai-qvg214" target="_blank" rel="noopener noreferrer" class="card-hover block bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+          <span class="text-accent text-sm font-medium">LA Hacks 2025</span>
+          <h4 class="font-semibold text-dark mt-1 mb-2">StudyBuddy.AI</h4>
+          <p class="text-slate-600 text-sm">Adaptive study companion with real-time focus tracking (MediaPipe), Gemini summarization, flashcards, quizzes, mind-maps, and break reminders.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">Devpost →</span>
+        </a>
+        <a href="https://devpost.com/software/gradnet" target="_blank" rel="noopener noreferrer" class="card-hover block bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+          <span class="text-accent text-sm font-medium">LA Hacks 2025</span>
+          <h4 class="font-semibold text-dark mt-1 mb-2">GradNet</h4>
+          <p class="text-slate-600 text-sm">Connects students with alumni mentors by major, skills, and career path using NLP search and Linkd People Search API. React, Flask, Groq AI.</p>
+          <span class="inline-block mt-3 text-accent text-sm font-medium">Devpost →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications" class="py-20 px-6 bg-white">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Publications</h2>
+      <div class="space-y-6">
+        <a href="https://ieeexplore.ieee.org/document/11299691" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
+          <h4 class="font-semibold text-dark">PSO-Tuned Neural Networks for Intrusion Detection in Computer Networks</h4>
+          <p class="text-slate-500 text-sm mt-1">IEEE</p>
+        </a>
+        <a href="https://ieeexplore.ieee.org/document/10104921" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
+          <h4 class="font-semibold text-dark">ESP8266-based Real-time Auscultation Sound Classification</h4>
+          <p class="text-slate-500 text-sm mt-1">IEEE</p>
+        </a>
+        <a href="https://ieeexplore.ieee.org/document/10099511" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
+          <h4 class="font-semibold text-dark">Towards Accurate Auscultation Sound Classification with Convolutional Neural Network</h4>
+          <p class="text-slate-500 text-sm mt-1">IEEE</p>
+        </a>
+        <a href="https://ieeexplore.ieee.org/document/9984324" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
+          <h4 class="font-semibold text-dark">IEEE Conference Publication</h4>
+          <p class="text-slate-500 text-sm mt-1">IEEE</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resumes -->
+  <section id="resumes" class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Resume</h2>
+      <p class="text-slate-600 mb-8">Download my resume tailored for different roles:</p>
+      <div class="flex flex-wrap gap-4">
+        <a href="resumes/Mahima_Mannava_AIE.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-accent hover:bg-accentHover text-white font-medium rounded-lg transition-colors">
+          AI Engineer
+        </a>
+        <a href="resumes/Mahima_Mannava_Dev.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-accent hover:bg-accentHover text-white font-medium rounded-lg transition-colors">
+          Software Engineer
+        </a>
+        <a href="resumes/Mahima_Mannava_ML.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-accent hover:bg-accentHover text-white font-medium rounded-lg transition-colors">
+          ML Engineer
+        </a>
+        <a href="resumes/Mahima_Mannava_MLDev.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 bg-accent hover:bg-accentHover text-white font-medium rounded-lg transition-colors">
+          ML & Software
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 px-6 bg-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="font-heading text-4xl font-bold text-dark mb-12">Contact</h2>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a href="mailto:mannavamahimachowdary.us@gmail.com" class="text-slate-600 hover:text-accent font-medium">mannavamahimachowdary.us@gmail.com</a>
+        <a href="https://linkedin.com/in/mahimamannava" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-accent font-medium">LinkedIn</a>
+        <a href="https://github.com/M4h1m4" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:text-accent font-medium">GitHub</a>
+      </div>
+      <p class="text-slate-500 text-sm mt-8">© Mahima Mannava</p>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('menu-btn').addEventListener('click', function() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+    document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Planning docs (internal use)
+docs/plans/
+
+# OS
+.DS_Store
+Thumbs.db
