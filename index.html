@@ -37,9 +37,47 @@
     .nav-link:hover::after { width: 100%; }
     #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
     #mobile-menu.open { max-height: 500px; }
+    /* Glassmorphism */
+    .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); }
+    /* Hero: animated gradient + neural focal + interactive glow */
+    .hero-bg { position: relative; overflow: hidden; }
+    .hero-bg::before {
+      content: ''; position: absolute; inset: -10%; z-index: 0;
+      background: 
+        radial-gradient(ellipse 120% 80% at 20% 30%, rgba(13, 148, 136, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 70% at 80% 70%, rgba(15, 118, 110, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(240, 253, 250, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+      animation: gradientShift 15s ease-in-out infinite alternate;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: -30%; z-index: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(13, 148, 136, 0.12) 0%, transparent 50%);
+      animation: glowPulse 6s ease-in-out infinite;
+    }
+    @keyframes gradientShift {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(-2%, -1%); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-neural {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.12;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3Cpattern id='n' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%230d9488'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23n)' width='400' height='400'/%3E%3Cpath d='M50 100 L150 80 L250 120 L350 90 M80 200 L180 180 L280 220 M120 300 L220 280 L320 300' stroke='%230d9488' fill='none' stroke-width='0.5' opacity='0.4'/%3E%3C/svg%3E");
+      background-size: 300px;
+    }
+    /* Page background for glass effect */
+    .page-bg { background: linear-gradient(180deg, #f0fdfa 0%, #f8fafc 30%, #f1f5f9 70%, #f8fafc 100%); min-height: 100%; }
+    .section-bg-alt { background: linear-gradient(135deg, rgba(13, 148, 136, 0.03) 0%, transparent 50%); }
+    /* Tech icons */
+    .tech-tag { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: #64748b; background: rgba(13, 148, 136, 0.08); padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.25rem; margin-bottom: 0.25rem; }
+    .tech-icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .project-title { font-size: 1.125rem; color: #0d9488; font-weight: 600; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="text-slate-800 antialiased page-bg">
   <!-- Nav -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -75,8 +113,9 @@
   </nav>
 
   <!-- Hero -->
-  <section id="hero" class="min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 bg-gradient-to-b from-teal-50 via-white to-slate-50">
-    <div class="max-w-3xl mx-auto text-center">
+  <section id="hero" class="hero-bg min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 relative">
+    <div class="hero-neural"></div>
+    <div class="hero-content max-w-3xl mx-auto text-center">
       <h1 class="font-heading text-5xl md:text-6xl font-bold text-dark mb-4">Mahima Mannava</h1>
       <p class="text-xl md:text-2xl text-slate-600 mb-2">Graduate Student · San Jose State University</p>
       <p class="text-slate-500 mb-8">AI Engineer · Generative AI · Adversarial ML</p>
@@ -85,7 +124,7 @@
   </section>
 
   <!-- About -->
-  <section id="about" class="py-20 px-6">
+  <section id="about" class="py-20 px-6 section-bg-alt">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-6">About</h2>
       <p class="text-slate-600 leading-relaxed">
@@ -95,40 +134,40 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="py-20 px-6 bg-white">
+  <section id="skills" class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Skills</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Languages</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" class="w-4 h-4"/>Languages</h3>
           <p class="text-slate-600 text-sm leading-relaxed">Python, C/C++, Java, JavaScript, SQL, HTML, Tcl</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Databases</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="" class="w-4 h-4"/>Databases</h3>
           <p class="text-slate-600 text-sm leading-relaxed">PostgreSQL, MongoDB, SQLite, ChromaDB</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">DevOps & Cloud</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="" class="w-4 h-4"/>DevOps & Cloud</h3>
           <p class="text-slate-600 text-sm leading-relaxed">AWS, Docker, Kubernetes, Terraform, Jenkins, CircleCI, Linux, Git</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Distributed & Performance</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/redis/DC382D" alt="" class="w-4 h-4"/>Distributed</h3>
           <p class="text-slate-600 text-sm leading-relaxed">Kafka, Redis, Grafana, Prometheus</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Web Application</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" class="w-4 h-4"/>Web</h3>
           <p class="text-slate-600 text-sm leading-relaxed">FastAPI, Django, React.js, Next.js, Tailwind CSS, Flask</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">AI/ML Frameworks</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">PyTorch, TensorFlow, Keras, LangChain, LangGraph, MCP</p>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="" class="w-4 h-4"/>AI/ML</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">PyTorch, TensorFlow, LangChain, LangGraph, MCP</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Data Science</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/pandas/150458" alt="" class="w-4 h-4"/>Data Science</h3>
           <p class="text-slate-600 text-sm leading-relaxed">RAG, LLMs, pandas, NumPy, Scikit-learn</p>
         </div>
-        <div class="card-hover bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h3 class="font-heading text-lg font-semibold text-dark mb-3">Tools & Software</h3>
+        <div class="card-hover glass rounded-xl p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-semibold text-dark mb-3 flex items-center gap-2"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="" class="w-4 h-4"/>Tools</h3>
           <p class="text-slate-600 text-sm leading-relaxed">Ansible, Perforce</p>
         </div>
       </div>
@@ -136,25 +175,25 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="py-20 px-6">
+  <section id="experience" class="py-20 px-6 section-bg-alt">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Experience</h2>
-      <div class="space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6 border-b border-slate-200 last:border-0">
+      <div class="space-y-4">
+        <div class="card-hover glass rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <h3 class="font-semibold text-dark">San Jose State University</h3>
             <p class="text-slate-600 text-sm">Research Assistant – MICoSys Lab</p>
           </div>
           <span class="text-slate-500 text-sm">Aug 2025 – Present</span>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6 border-b border-slate-200 last:border-0">
+        <div class="card-hover glass rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <h3 class="font-semibold text-dark">Scale AI</h3>
             <p class="text-slate-600 text-sm">Gen AI Intern</p>
           </div>
           <span class="text-slate-500 text-sm">Jun 2025 – Dec 2025</span>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-6">
+        <div class="card-hover glass rounded-xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
             <h3 class="font-semibold text-dark">Synopsys Inc</h3>
             <p class="text-slate-600 text-sm">Software Engineer</p>
@@ -166,53 +205,61 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="py-20 px-6 bg-white">
+  <section id="projects" class="py-20 px-6">
     <div class="max-w-5xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Projects</h2>
       
       <h3 class="font-heading text-xl font-semibold text-dark mb-4">Software</h3>
       <div class="grid md:grid-cols-2 gap-6 mb-12">
-        <a href="https://github.com/M4h1m4/Stackbirds" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Invoice Processor</h4>
-          <p class="text-slate-600 text-sm">LLM-driven invoice processing app that extracts line items, matches approved vendors, and produces approve/flag decisions. FastAPI, React, MongoDB.</p>
+        <a href="https://github.com/M4h1m4/Stackbirds" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Invoice Processor</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="tech-icon"/>Python</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" class="tech-icon"/>React</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS" class="tech-icon"/>AWS</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB" class="tech-icon"/>MongoDB</span></div>
+          <p class="text-slate-600 text-sm">LLM-driven invoice processing that extracts line items, matches vendors, and produces approve/flag decisions.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/DocumentAssistant" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Document Assistant</h4>
-          <p class="text-slate-600 text-sm">FastAPI-based document summarization and RAG service with Redis job queues, semantic search, and ChromaDB. Natural language querying over documents.</p>
+        <a href="https://github.com/M4h1m4/DocumentAssistant" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Document Assistant</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI" class="tech-icon"/>FastAPI</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/redis/DC382D" alt="Redis" class="tech-icon"/>Redis</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="RAG" class="tech-icon"/>RAG</span></div>
+          <p class="text-slate-600 text-sm">Document summarization and RAG service with Redis job queues, semantic search, and ChromaDB.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/DeepResearchAgent" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Deep Research Agent</h4>
-          <p class="text-slate-600 text-sm">Production-grade dual-mode RAG system for real-time QA and multi-step research synthesis. LangGraph, OpenAI, FastAPI, SQLAlchemy.</p>
+        <a href="https://github.com/M4h1m4/DeepResearchAgent" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Deep Research Agent</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/langchain/1C6EFB" alt="LangGraph" class="tech-icon"/>LangGraph</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/openai/412991" alt="OpenAI" class="tech-icon"/>OpenAI</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="SQL" class="tech-icon"/>SQL</span></div>
+          <p class="text-slate-600 text-sm">Production-grade dual-mode RAG for real-time QA and multi-step research synthesis.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/fastapi-sqlite-job-queue" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">FastAPI SQLite Job Queue</h4>
-          <p class="text-slate-600 text-sm">Job queue service with durable state in SQLite. Upload text files, poll status, get results. Sync and async versions.</p>
+        <a href="https://github.com/M4h1m4/fastapi-sqlite-job-queue" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">FastAPI SQLite Job Queue</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="tech-icon"/>Python</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" class="tech-icon"/>SQLite</span></div>
+          <p class="text-slate-600 text-sm">Job queue service with durable state. Upload text files, poll status, get results. Sync and async versions.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
       </div>
 
       <h3 class="font-heading text-xl font-semibold text-dark mb-4">Machine Learning</h3>
       <div class="grid md:grid-cols-2 gap-6">
-        <a href="https://github.com/M4h1m4/TrueAI" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">TrueAI (Near-Zero Hallucination RAG)</h4>
-          <p class="text-slate-600 text-sm">NLI-gated RAG loop with FAISS retrieval and RoBERTa fact-checking. 88.4% accuracy, defaults to "I don't know" for unsafe outputs.</p>
+        <a href="https://github.com/M4h1m4/TrueAI" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">TrueAI (Near-Zero Hallucination RAG)</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch" class="tech-icon"/>PyTorch</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="Hugging Face" class="tech-icon"/>FAISS</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="RoBERTa" class="tech-icon"/>RoBERTa</span></div>
+          <p class="text-slate-600 text-sm">NLI-gated RAG loop with FAISS retrieval. 88.4% accuracy, defaults to "I don't know" for unsafe outputs.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/semantic-book-recommender-llms" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Semantic Book Recommender</h4>
-          <p class="text-slate-600 text-sm">LLM-powered book recommendations using embeddings, vector similarity (ChromaDB), zero-shot genre classification, and RoBERTa sentiment.</p>
+        <a href="https://github.com/M4h1m4/semantic-book-recommender-llms" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Semantic Book Recommender</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/openai/412991" alt="LLM" class="tech-icon"/>LLM</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="ChromaDB" class="tech-icon"/>ChromaDB</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/huggingface/FFD21E" alt="RoBERTa" class="tech-icon"/>RoBERTa</span></div>
+          <p class="text-slate-600 text-sm">LLM-powered recommendations with embeddings, vector similarity, zero-shot genre classification, and sentiment.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/Intrusion-Detection-System" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Intrusion Detection System</h4>
-          <p class="text-slate-600 text-sm">PSO-tuned deep learning on NSL-KDD: CNN-LSTM hybrid, PSO-optimized 1D-CNN and LSTM for attack classification.</p>
+        <a href="https://github.com/M4h1m4/Intrusion-Detection-System" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Intrusion Detection System</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch" class="tech-icon"/>PyTorch</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="CNN" class="tech-icon"/>CNN</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="LSTM" class="tech-icon"/>LSTM</span></div>
+          <p class="text-slate-600 text-sm">PSO-tuned deep learning on NSL-KDD: CNN-LSTM hybrid, PSO-optimized 1D-CNN and LSTM.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
-        <a href="https://github.com/M4h1m4/Auscultation-Sound-Classification" target="_blank" rel="noopener noreferrer" class="card-hover block bg-slate-50 rounded-xl p-6 border border-slate-100">
-          <h4 class="font-semibold text-dark mb-2">Auscultation Sound Classification</h4>
+        <a href="https://github.com/M4h1m4/Auscultation-Sound-Classification" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
+          <h4 class="project-title mb-2">Auscultation Sound Classification</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="CNN" class="tech-icon"/>CNN</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/android/3DDC84" alt="Android" class="tech-icon"/>Android</span></div>
           <p class="text-slate-600 text-sm">CNN-based classification of auscultation sounds. Includes Android app for real-time inference.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">GitHub →</span>
         </a>
@@ -221,20 +268,22 @@
   </section>
 
   <!-- Hackathons -->
-  <section id="hackathons" class="py-20 px-6">
+  <section id="hackathons" class="py-20 px-6 section-bg-alt">
     <div class="max-w-5xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Hackathons</h2>
       <div class="grid md:grid-cols-2 gap-6">
-        <a href="https://devpost.com/software/studybuddy-ai-qvg214" target="_blank" rel="noopener noreferrer" class="card-hover block bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <a href="https://devpost.com/software/studybuddy-ai-qvg214" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
           <span class="text-accent text-sm font-medium">LA Hacks 2025</span>
-          <h4 class="font-semibold text-dark mt-1 mb-2">StudyBuddy.AI</h4>
-          <p class="text-slate-600 text-sm">Adaptive study companion with real-time focus tracking (MediaPipe), Gemini summarization, flashcards, quizzes, mind-maps, and break reminders.</p>
+          <h4 class="project-title mt-1 mb-2">StudyBuddy.AI</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/nextdotjs/000000" alt="Next.js" class="tech-icon"/>Next.js</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/flask/000000" alt="Flask" class="tech-icon"/>Flask</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/google/4285F4" alt="MediaPipe" class="tech-icon"/>MediaPipe</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/google/4285F4" alt="Gemini" class="tech-icon"/>Gemini</span></div>
+          <p class="text-slate-600 text-sm">Adaptive study companion with real-time focus tracking, Gemini summarization, flashcards, quizzes, and mind-maps.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">Devpost →</span>
         </a>
-        <a href="https://devpost.com/software/gradnet" target="_blank" rel="noopener noreferrer" class="card-hover block bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <a href="https://devpost.com/software/gradnet" target="_blank" rel="noopener noreferrer" class="card-hover block glass rounded-xl p-6 shadow-sm">
           <span class="text-accent text-sm font-medium">LA Hacks 2025</span>
-          <h4 class="font-semibold text-dark mt-1 mb-2">GradNet</h4>
-          <p class="text-slate-600 text-sm">Connects students with alumni mentors by major, skills, and career path using NLP search and Linkd People Search API. React, Flask, Groq AI.</p>
+          <h4 class="project-title mt-1 mb-2">GradNet</h4>
+          <div class="flex flex-wrap gap-1 mb-3"><span class="tech-tag"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" class="tech-icon"/>React</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/flask/000000" alt="Flask" class="tech-icon"/>Flask</span><span class="tech-tag"><img src="https://cdn.simpleicons.org/openai/412991" alt="Groq" class="tech-icon"/>Groq AI</span></div>
+          <p class="text-slate-600 text-sm">NLP-powered platform connecting students with alumni mentors by major, skills, and career path.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">Devpost →</span>
         </a>
       </div>
@@ -242,24 +291,24 @@
   </section>
 
   <!-- Publications -->
-  <section id="publications" class="py-20 px-6 bg-white">
+  <section id="publications" class="py-20 px-6">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Publications</h2>
-      <div class="space-y-6">
-        <a href="https://ieeexplore.ieee.org/document/11299691" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
-          <h4 class="font-semibold text-dark">PSO-Tuned Neural Networks for Intrusion Detection in Computer Networks</h4>
+      <div class="space-y-4">
+        <a href="https://ieeexplore.ieee.org/document/11299691" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">PSO-Tuned Neural Networks for Intrusion Detection in Computer Networks</h4>
           <p class="text-slate-500 text-sm mt-1">IEEE</p>
         </a>
-        <a href="https://ieeexplore.ieee.org/document/10104921" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
-          <h4 class="font-semibold text-dark">ESP8266-based Real-time Auscultation Sound Classification</h4>
+        <a href="https://ieeexplore.ieee.org/document/10104921" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">ESP8266-based Real-time Auscultation Sound Classification</h4>
           <p class="text-slate-500 text-sm mt-1">IEEE</p>
         </a>
-        <a href="https://ieeexplore.ieee.org/document/10099511" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
-          <h4 class="font-semibold text-dark">Towards Accurate Auscultation Sound Classification with Convolutional Neural Network</h4>
+        <a href="https://ieeexplore.ieee.org/document/10099511" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">Towards Accurate Auscultation Sound Classification with CNN</h4>
           <p class="text-slate-500 text-sm mt-1">IEEE</p>
         </a>
-        <a href="https://ieeexplore.ieee.org/document/9984324" target="_blank" rel="noopener noreferrer" class="card-hover block p-4 rounded-lg border border-slate-200 hover:border-accent/50">
-          <h4 class="font-semibold text-dark">CNN Comparative Analysis for Skin Cancer Classification</h4>
+        <a href="https://ieeexplore.ieee.org/document/9984324" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">CNN Comparative Analysis for Skin Cancer Classification</h4>
           <p class="text-slate-500 text-sm mt-1">IEEE</p>
         </a>
       </div>
@@ -267,24 +316,24 @@
   </section>
 
   <!-- Highlights -->
-  <section id="highlights" class="py-20 px-6">
+  <section id="highlights" class="py-20 px-6 section-bg-alt">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Highlights</h2>
       <p class="text-slate-600 mb-8">Events, conferences, and experiences that fuel my growth in AI and tech.</p>
-      <div class="space-y-6">
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7241592311174848512/?originTrackingId=TMXf0OTzJ18RLtKdPeoktg%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block p-5 rounded-xl border border-slate-200 hover:border-accent/50 bg-white">
-          <h4 class="font-semibold text-dark">AWS Community Day Bay Area</h4>
-          <p class="text-slate-600 text-sm mt-1">AmazonQ, multimodal AI with Antje Barth, Intel Gaudi workshop, and model deployment insights from the AI/ML track.</p>
+      <div class="space-y-4">
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7241592311174848512/?originTrackingId=TMXf0OTzJ18RLtKdPeoktg%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">AWS Community Day Bay Area</h4>
+          <p class="text-slate-600 text-sm mt-1">AmazonQ, multimodal AI with Antje Barth, Intel Gaudi workshop, and model deployment insights.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">LinkedIn →</span>
         </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7309015230997573632/?originTrackingId=I87W8RPFz6LqsQV169co8g%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block p-5 rounded-xl border border-slate-200 hover:border-accent/50 bg-white">
-          <h4 class="font-semibold text-dark">Silicon Valley Women in Engineering Conference 2025</h4>
-          <p class="text-slate-600 text-sm mt-1">Responsible AI sessions (IBM, Accenture, Google), career panel with women leaders, and mentoring fellow attendees.</p>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7309015230997573632/?originTrackingId=I87W8RPFz6LqsQV169co8g%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">Silicon Valley Women in Engineering Conference 2025</h4>
+          <p class="text-slate-600 text-sm mt-1">Responsible AI sessions (IBM, Accenture, Google), career panel with women leaders, and mentoring attendees.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">LinkedIn →</span>
         </a>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7324981736994484224/?originTrackingId=OBkF7L%2BvL21TrwIfedWxJg%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block p-5 rounded-xl border border-slate-200 hover:border-accent/50 bg-white">
-          <h4 class="font-semibold text-dark">LA Hacks 2025 – StudyBuddy.AI & GradNet</h4>
-          <p class="text-slate-600 text-sm mt-1">Built two full-stack AI projects in 36 hours: focus-adaptive learning with MediaPipe + Gemini, and NLP-driven mentorship discovery with Groq.</p>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7324981736994484224/?originTrackingId=OBkF7L%2BvL21TrwIfedWxJg%3D%3D" target="_blank" rel="noopener noreferrer" class="card-hover block glass p-5 rounded-xl shadow-sm">
+          <h4 class="project-title">LA Hacks 2025 – StudyBuddy.AI & GradNet</h4>
+          <p class="text-slate-600 text-sm mt-1">Built two full-stack AI projects in 36 hours: focus-adaptive learning with MediaPipe + Gemini, and NLP-driven mentorship discovery.</p>
           <span class="inline-block mt-3 text-accent text-sm font-medium">LinkedIn →</span>
         </a>
       </div>
@@ -314,7 +363,7 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20 px-6 bg-white">
+  <section id="contact" class="py-20 px-6">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="font-heading text-4xl font-bold text-dark mb-12">Contact</h2>
       <div class="flex flex-wrap justify-center gap-8">
